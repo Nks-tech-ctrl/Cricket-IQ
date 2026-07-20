@@ -31,4 +31,14 @@ class Player:
 
 def load_players():
     with open("data/player.json", "r") as file:
-        pass
+        players =json.load(file)
+        
+    return players
+
+def save_players(players):
+    with open("data/player.json","w") as file :
+        json.dump(players,file)
+        
+
+def generate_playerID():
+    player=load_players()
