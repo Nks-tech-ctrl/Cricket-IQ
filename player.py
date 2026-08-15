@@ -37,8 +37,44 @@ def load_players():
 
 def save_players(players):
     with open("data/player.json","w") as file :
-        json.dump(players,file)
+        json.dump(players,file,indent=4)
         
 
 def generate_playerID():
-    player=load_players()
+    players=load_players()
+    if not players:
+        return "P001"
+    last_id = players[-1]["player_id"]
+    number = int(last_id[1:])
+
+    return f"P{number+1:03d}"
+
+def add_player():
+    
+    player_id=generate_playerID()
+    players=load_players()
+    name=input("Enter player name:")
+    role =input("Enter role of player:")
+    bat_avg= float(input("Enter the batting average:"))
+    strike_rate=float(input("Enter the strike rate of player:"))
+    wickets = int(input("Enter the wickets of player:"))
+    bowl_avg=float(input("Enter the the bowling average:"))
+    economy = float(input("Enter the economy of player:"))
+
+    player_details= Player(player_id,name,role,bat_avg,strike_rate,wickets,bowl_avg,economy)
+    
+    new_player = player_details.to_dict()
+    players.append(new_player)
+
+    save_players(players)
+
+def view_player():
+    players = load_players()
+
+    for player in players:
+        
+
+    
+
+  
+        

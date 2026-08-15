@@ -1,1 +1,22 @@
-[]
+[
+    {
+        "player_id": "P001",
+        "name": "nikhil",
+        "role": "batter",
+        "bat_avg": 14.0,
+        "strike_rate": 45.0,
+        "wickets": 0,
+        "bowl_avg": 0.0,
+        "economy": 16.0
+    },
+    {
+        "player_id": "P002",
+        "name": "virat",
+        "role": "batter",
+        "bat_avg": 50.0,
+        "strike_rate": 145.0,
+        "wickets": 0,
+        "bowl_avg": 0.0,
+        "economy": 0.0
+    }
+]
