@@ -1,2 +1,2 @@
-from player import add_player
-add_player()
+from player import add_player,view_players
+view_players()
