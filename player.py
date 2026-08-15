@@ -83,3 +83,19 @@ def view_players():
         print(
             f"{player['player_id']:10}|{player['name']:15}|{player['role']:15}|{player['bat_avg']:10}|{player['strike_rate']:10}|{player['wickets']:10}|{player['bowl_avg']:10}|{player['economy']:10}|"
         )
+
+def search_player():
+    Playerid = input("Enter player id to searh Player: ")
+    players=load_players()
+    found=False
+    for player in players:
+        if player["player_id"]==Playerid :
+            print(
+                player["player_id"],player["name"],player["role"],player["bat_avg"],player["strike_rate"],player["wickets"],player["bowl_avg"],player["economy"]
+            )
+            found =True
+    if not found:
+        print("player doesnot exist!")
+
+
+
