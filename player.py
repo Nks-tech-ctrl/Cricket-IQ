@@ -94,8 +94,8 @@ def search_player():
             print("Player Found")
             print("-" * 105)
             print(
-                    f"{'ID':10}|{'Name':15}|{'Role':15}|{'Bat_Avg':10}|{'SR':10}|{'wickets':10}|{'bowl_avg':10}|{'economy':10}|"
-                )
+                f"{'ID':10}|{'Name':15}|{'Role':15}|{'Bat_Avg':10}|{'SR':10}|{'wickets':10}|{'bowl_avg':10}|{'economy':10}|"
+            )
             print("-" * 105)
             print(
                 f"{player['player_id']:10}|{player['name']:15}|{player['role']:15}|{player['bat_avg']:10}|{player['strike_rate']:10}|{player['wickets']:10}|{player['bowl_avg']:10}|{player['economy']:10}|"
@@ -104,3 +104,68 @@ def search_player():
             found = True
     if not found:
         print("player doesnot exist!")
+
+
+def update_player():
+    PlayerId = input("Enter player Id to update:")
+    players = load_players()
+    found = False
+
+    for player in players:
+        if player["player_id"] == PlayerId:
+            print("-" * 105)
+            print(
+                f"{'ID':10}|{'Name':15}|{'Role':15}|{'Bat_Avg':10}|{'SR':10}|{'wickets':10}|{'bowl_avg':10}|{'economy':10}|"
+            )
+            print("-" * 105)
+            print(
+                f"{player['player_id']:10}|{player['name']:15}|{player['role']:15}|{player['bat_avg']:10}|{player['strike_rate']:10}|{player['wickets']:10}|{player['bowl_avg']:10}|{player['economy']:10}|"
+            )
+            print("-" * 105)
+            matching_player = player
+            found = True
+
+    if not found:
+        print("Player does not exist")
+    else:
+        print("What do you wnat to update?")
+        print("1.Name")
+        print("2.Role")
+        print("3.Batting average")
+        print("4.Strike rate")
+        print("5.Wickets")
+        print("6.Bowling Average")
+        print("7.Economy")
+
+        choice = int(input("Enter the choice:"))
+
+        field_map = {
+            1: "name",
+            2: "role",
+            3: "bat_avg",
+            4: "strike_rate",
+            5: "wickets",
+            6: "bowl_avg",
+            7: "economy",
+        }
+        selected_field = field_map[choice]
+        type_map = {
+            "name": str,
+            "role": str,
+            "bat_avg": float,
+            "strike_rate": float,
+            "wickets": int,
+            "bowl_avg": float,
+            "economy": float,
+        }
+
+        converter = type_map[selected_field]
+        new_value = converter(input("Enter New Value:"))
+
+        Confirm_update = input("confirm update?(Yes/No):")
+        if Confirm_update.lower() == "yes":
+            matching_player[selected_field] = new_value
+            save_players(players)
+            print("Player updated successfully")
+        else:
+            print("Update cancelled")
