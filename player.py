@@ -3,11 +3,12 @@ import json
 
 class Player:
     def __init__(
-        self, player_id, name, role, bat_avg, strike_rate, wickets, bowl_avg, economy
+        self, player_id, name, role,run, bat_avg, strike_rate, wickets, bowl_avg, economy
     ):
         self.player_id = player_id
         self.name = name
         self.role = role
+        self.run =run
         self.batting_avg = bat_avg
         self.strike_rate = strike_rate
         self.wickets = wickets
@@ -19,6 +20,7 @@ class Player:
             "player_id": self.player_id,
             "name": self.name,
             "role": self.role,
+            "run":self.run,
             "bat_avg": self.batting_avg,
             "strike_rate": self.strike_rate,
             "wickets": self.wickets,
@@ -56,6 +58,7 @@ def add_player():
     player_id = generate_playerID()
     players = load_players()
     name = input("Enter player name:")
+    run =int(input("Enter total runs:"))
     role = input("Enter role of player:")
     bat_avg = float(input("Enter the batting average:"))
     strike_rate = float(input("Enter the strike rate of player:"))
@@ -64,7 +67,7 @@ def add_player():
     economy = float(input("Enter the economy of player:"))
 
     player_details = Player(
-        player_id, name, role, bat_avg, strike_rate, wickets, bowl_avg, economy
+        player_id, name, role, run,bat_avg, strike_rate, wickets, bowl_avg, economy
     )
 
     new_player = player_details.to_dict()
@@ -76,12 +79,12 @@ def add_player():
 def view_players():
     players = load_players()
     print(
-        f"{'ID':10}|{'Name':15}|{'Role':15}|{'Bat_Avg':10}|{'SR':10}|{'wickets':10}|{'bowl_avg':10}|{'economy':10}|"
+        f"{'ID':10}|{'Name':15}|{'Role':15}|{'Runs':10}|{'Bat_Avg':10}|{'SR':10}|{'wickets':10}|{'bowl_avg':10}|{'economy':10}|"
     )
     print("-" * 110)
     for player in players:
         print(
-            f"{player['player_id']:10}|{player['name']:15}|{player['role']:15}|{player['bat_avg']:10}|{player['strike_rate']:10}|{player['wickets']:10}|{player['bowl_avg']:10}|{player['economy']:10}|"
+            f"{player['player_id']:10}|{player['name']:15}|{player['role']:15}|{player['run']:10}|{player['bat_avg']:10}|{player['strike_rate']:10}|{player['wickets']:10}|{player['bowl_avg']:10}|{player['economy']:10}|"
         )
 
 
@@ -94,11 +97,11 @@ def search_player():
             print("Player Found")
             print("-" * 105)
             print(
-                f"{'ID':10}|{'Name':15}|{'Role':15}|{'Bat_Avg':10}|{'SR':10}|{'wickets':10}|{'bowl_avg':10}|{'economy':10}|"
+                f"{'ID':10}|{'Name':15}|{'Role':15}|{'Runs':10}|{'Bat_Avg':10}|{'SR':10}|{'wickets':10}|{'bowl_avg':10}|{'economy':10}|"
             )
             print("-" * 105)
             print(
-                f"{player['player_id']:10}|{player['name']:15}|{player['role']:15}|{player['bat_avg']:10}|{player['strike_rate']:10}|{player['wickets']:10}|{player['bowl_avg']:10}|{player['economy']:10}|"
+                f"{player['player_id']:10}|{player['name']:15}|{player['role']:15}|{player['run']:10}|{player['bat_avg']:10}|{player['strike_rate']:10}|{player['wickets']:10}|{player['bowl_avg']:10}|{player['economy']:10}|"
             )
             print("-" * 105)
             found = True
@@ -115,11 +118,11 @@ def update_player():
         if player["player_id"] == PlayerId:
             print("-" * 105)
             print(
-                f"{'ID':10}|{'Name':15}|{'Role':15}|{'Bat_Avg':10}|{'SR':10}|{'wickets':10}|{'bowl_avg':10}|{'economy':10}|"
+                f"{'ID':10}|{'Name':15}|{'Role':15}|{'Runs':10}|{'Bat_Avg':10}|{'SR':10}|{'wickets':10}|{'bowl_avg':10}|{'economy':10}|"
             )
             print("-" * 105)
             print(
-                f"{player['player_id']:10}|{player['name']:15}|{player['role']:15}|{player['bat_avg']:10}|{player['strike_rate']:10}|{player['wickets']:10}|{player['bowl_avg']:10}|{player['economy']:10}|"
+                f"{player['player_id']:10}|{player['name']:15}|{player['role']:15}|{player['run']:10}|{player['bat_avg']:10}|{player['strike_rate']:10}|{player['wickets']:10}|{player['bowl_avg']:10}|{player['economy']:10}|"
             )
             print("-" * 105)
             matching_player = player
@@ -131,27 +134,30 @@ def update_player():
         print("What do you wnat to update?")
         print("1.Name")
         print("2.Role")
-        print("3.Batting average")
-        print("4.Strike rate")
-        print("5.Wickets")
-        print("6.Bowling Average")
-        print("7.Economy")
+        print("3.Runs")
+        print("4.Batting average")
+        print("5.Strike rate")
+        print("6.Wickets")
+        print("7.Bowling Average")
+        print("8.Economy")
 
         choice = int(input("Enter the choice:"))
 
         field_map = {
             1: "name",
             2: "role",
-            3: "bat_avg",
-            4: "strike_rate",
-            5: "wickets",
-            6: "bowl_avg",
-            7: "economy",
+            3:"run",
+            4: "bat_avg",
+            5: "strike_rate",
+            6: "wickets",
+            7: "bowl_avg",
+            8: "economy",
         }
         selected_field = field_map[choice]
         type_map = {
             "name": str,
             "role": str,
+            "run":int,
             "bat_avg": float,
             "strike_rate": float,
             "wickets": int,
@@ -179,11 +185,11 @@ def delete_player():
         if player["player_id"]==Playerid:
             print("-" * 105)
             print(
-                f"{'ID':10}|{'Name':15}|{'Role':15}|{'Bat_Avg':10}|{'SR':10}|{'wickets':10}|{'bowl_avg':10}|{'economy':10}|"
+                f"{'ID':10}|{'Name':15}|{'Role':15}|{'Runs':10}|{'Bat_Avg':10}|{'SR':10}|{'wickets':10}|{'bowl_avg':10}|{'economy':10}|"
             )
             print("-" * 105)
             print(
-                f"{player['player_id']:10}|{player['name']:15}|{player['role']:15}|{player['bat_avg']:10}|{player['strike_rate']:10}|{player['wickets']:10}|{player['bowl_avg']:10}|{player['economy']:10}|"
+                f"{player['player_id']:10}|{player['name']:15}|{player['role']:15}|{player['run']:10}|{player['bat_avg']:10}|{player['strike_rate']:10}|{player['wickets']:10}|{player['bowl_avg']:10}|{player['economy']:10}|"
             )
             print("-" * 105)
             found =True

@@ -3,6 +3,7 @@
         "player_id": "P002",
         "name": "virat",
         "role": "batter",
+        "run":1500,
         "bat_avg": 50.0,
         "strike_rate": 145.0,
         "wickets": 0,
