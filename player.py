@@ -78,24 +78,29 @@ def view_players():
     print(
         f"{'ID':10}|{'Name':15}|{'Role':15}|{'Bat_Avg':10}|{'SR':10}|{'wickets':10}|{'bowl_avg':10}|{'economy':10}|"
     )
-    print("-"*110)
+    print("-" * 110)
     for player in players:
         print(
             f"{player['player_id']:10}|{player['name']:15}|{player['role']:15}|{player['bat_avg']:10}|{player['strike_rate']:10}|{player['wickets']:10}|{player['bowl_avg']:10}|{player['economy']:10}|"
         )
 
+
 def search_player():
     Playerid = input("Enter player id to searh Player: ")
-    players=load_players()
-    found=False
+    players = load_players()
+    found = False
     for player in players:
-        if player["player_id"]==Playerid :
+        if player["player_id"] == Playerid:
+            print("Player Found")
+            print("-" * 105)
             print(
-                player["player_id"],player["name"],player["role"],player["bat_avg"],player["strike_rate"],player["wickets"],player["bowl_avg"],player["economy"]
+                    f"{'ID':10}|{'Name':15}|{'Role':15}|{'Bat_Avg':10}|{'SR':10}|{'wickets':10}|{'bowl_avg':10}|{'economy':10}|"
+                )
+            print("-" * 105)
+            print(
+                f"{player['player_id']:10}|{player['name']:15}|{player['role']:15}|{player['bat_avg']:10}|{player['strike_rate']:10}|{player['wickets']:10}|{player['bowl_avg']:10}|{player['economy']:10}|"
             )
-            found =True
+            print("-" * 105)
+            found = True
     if not found:
         print("player doesnot exist!")
-
-
-
