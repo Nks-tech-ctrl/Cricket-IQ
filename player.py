@@ -169,3 +169,33 @@ def update_player():
             print("Player updated successfully")
         else:
             print("Update cancelled")
+
+def delete_player():
+    Playerid=input("Enter player id to delete player:")
+    Players=load_players()
+    found=False
+
+    for player in Players:
+        if player["player_id"]==Playerid:
+            print("-" * 105)
+            print(
+                f"{'ID':10}|{'Name':15}|{'Role':15}|{'Bat_Avg':10}|{'SR':10}|{'wickets':10}|{'bowl_avg':10}|{'economy':10}|"
+            )
+            print("-" * 105)
+            print(
+                f"{player['player_id']:10}|{player['name']:15}|{player['role']:15}|{player['bat_avg']:10}|{player['strike_rate']:10}|{player['wickets']:10}|{player['bowl_avg']:10}|{player['economy']:10}|"
+            )
+            print("-" * 105)
+            found =True
+
+            confirm_deletion = input("Are you sure  you wnat to delete player(Yes/No):")
+
+            if confirm_deletion.lower() == "yes":
+                Players.remove(player)
+                save_players(Players)
+                print("Player deleted successfully!")
+            else:
+                print("deletion cancelled")
+    if not found:
+        print("player id does not exist!")
+
