@@ -2,48 +2,19 @@ import json
 
 
 class Player:
-    def __init__(
-        self,
-        player_id,
-        name,
-        role,
-        match,
-        innings,
-        run,
-        bat_avg,
-        strike_rate,
-        wickets,
-        bowl_avg,
-        economy,
-    ):
+    def __init__(self, player_id, name, role, stats):
         self.player_id = player_id
         self.name = name
         self.role = role
-        self.match = match
-        self.innings = innings
-        self.run = run
-        self.batting_avg = bat_avg
-        self.strike_rate = strike_rate
-        self.wickets = wickets
-        self.bowling_avg = bowl_avg
-        self.economy = economy
+        self.stats = stats
 
     def to_dict(self):
-        data = {
+        return {
             "player_id": self.player_id,
             "name": self.name,
             "role": self.role,
-            "match": self.match,
-            "innings": self.innings,
-            "run": self.run,
-            "bat_avg": self.batting_avg,
-            "strike_rate": self.strike_rate,
-            "wickets": self.wickets,
-            "bowl_avg": self.bowling_avg,
-            "economy": self.economy,
+            "stats": self.stats,
         }
-
-        return data
 
 
 def load_players():
@@ -74,28 +45,30 @@ def add_player():
     players = load_players()
     name = input("Enter player name:")
     role = input("Enter role of player:")
-    match = int(input("Enter the matches played by player:"))
+    format = input("Enter Format (T20/ODI/Test):")
+    matches = int(input("Enter the matches played by player:"))
     innings = int(input("Enter the innings:  "))
-    run = int(input("Enter total runs:"))
+    runs = int(input("Enter total runs:"))
     bat_avg = float(input("Enter the batting average:"))
     strike_rate = float(input("Enter the strike rate of player:"))
     wickets = int(input("Enter the wickets of player:"))
     bowl_avg = float(input("Enter the the bowling average:"))
     economy = float(input("Enter the economy of player:"))
 
-    player_details = Player(
-        player_id,
-        name,
-        role,
-        match,
-        innings,
-        run,
-        bat_avg,
-        strike_rate,
-        wickets,
-        bowl_avg,
-        economy,
-    )
+    stats = {
+        format: {
+            "matches": matches,
+            "innings": innings,
+            "runs": runs,
+            "bat_avg": bat_avg,
+            "strike_rate": strike_rate,
+            "wickets": wickets,
+            "bowl_avg": bowl_avg,
+            "economy": economy,
+        }
+    }
+
+    player_details = Player(player_id, name, role, stats)
 
     new_player = player_details.to_dict()
     players.append(new_player)
@@ -106,12 +79,12 @@ def add_player():
 def view_players():
     players = load_players()
     print(
-        f"{'ID':10}|{'Name':15}|{'Role':15}|{'Match':10}|{'Innings':10}|{'Runs':10}|{'Bat_Avg':10}|{'SR':10}|{'wickets':10}|{'bowl_avg':10}|{'economy':10}|"
+        f"{'ID':10}|{'Name':15}|{'Role':15}|{'Format':15}|{'Matchs':10}|{'Innings':10}|{'Runs':10}|{'Bat_Avg':10}|{'SR':10}|{'wickets':10}|{'bowl_avg':10}|{'economy':10}|"
     )
     print("-" * 130)
     for player in players:
         print(
-            f"{player['player_id']:10}|{player['name']:15}|{player['role']:15}|{player['match']:10}|{player['innings']:10}|{player['run']:10}|{player['bat_avg']:10}|{player['strike_rate']:10}|{player['wickets']:10}|{player['bowl_avg']:10}|{player['economy']:10}|"
+            f"{player['player_id']:10}|{player['name']:15}|{player['role']:15}|{player['format']:15}|{player['matchs']:10}|{player['innings']:10}|{player['runs']:10}|{player['bat_avg']:10}|{player['strike_rate']:10}|{player['wickets']:10}|{player['bowl_avg']:10}|{player['economy']:10}|"
         )
     print("-" * 130)
 
