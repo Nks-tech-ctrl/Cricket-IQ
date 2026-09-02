@@ -2,48 +2,19 @@ import json
 
 
 class Player:
-    def __init__(
-        self,
-        player_id,
-        name,
-        role,
-        match,
-        innings,
-        run,
-        bat_avg,
-        strike_rate,
-        wickets,
-        bowl_avg,
-        economy,
-    ):
+    def __init__(self, player_id, name, role, stats):
         self.player_id = player_id
         self.name = name
         self.role = role
-        self.match = match
-        self.innings = innings
-        self.run = run
-        self.batting_avg = bat_avg
-        self.strike_rate = strike_rate
-        self.wickets = wickets
-        self.bowling_avg = bowl_avg
-        self.economy = economy
+        self.stats = stats
 
     def to_dict(self):
-        data = {
+        return {
             "player_id": self.player_id,
             "name": self.name,
             "role": self.role,
-            "match": self.match,
-            "innings": self.innings,
-            "run": self.run,
-            "bat_avg": self.batting_avg,
-            "strike_rate": self.strike_rate,
-            "wickets": self.wickets,
-            "bowl_avg": self.bowling_avg,
-            "economy": self.economy,
+            "stats": self.stats,
         }
-
-        return data
 
 
 def load_players():
@@ -74,28 +45,30 @@ def add_player():
     players = load_players()
     name = input("Enter player name:")
     role = input("Enter role of player:")
-    match = int(input("Enter the matches played by player:"))
+    format = input("Enter Format (T20/ODI/Test):")
+    matches = int(input("Enter the matches played by player:"))
     innings = int(input("Enter the innings:  "))
-    run = int(input("Enter total runs:"))
+    runs = int(input("Enter total runs:"))
     bat_avg = float(input("Enter the batting average:"))
     strike_rate = float(input("Enter the strike rate of player:"))
     wickets = int(input("Enter the wickets of player:"))
     bowl_avg = float(input("Enter the the bowling average:"))
     economy = float(input("Enter the economy of player:"))
 
-    player_details = Player(
-        player_id,
-        name,
-        role,
-        match,
-        innings,
-        run,
-        bat_avg,
-        strike_rate,
-        wickets,
-        bowl_avg,
-        economy,
-    )
+    stats = {
+        format: {
+            "matches": matches,
+            "innings": innings,
+            "runs": runs,
+            "bat_avg": bat_avg,
+            "strike_rate": strike_rate,
+            "wickets": wickets,
+            "bowl_avg": bowl_avg,
+            "economy": economy,
+        }
+    }
+
+    player_details = Player(player_id, name, role, stats)
 
     new_player = player_details.to_dict()
     players.append(new_player)
@@ -105,93 +78,186 @@ def add_player():
 
 def view_players():
     players = load_players()
-    print(
-        f"{'ID':10}|{'Name':15}|{'Role':15}|{'Match':10}|{'Innings':10}|{'Runs':10}|{'Bat_Avg':10}|{'SR':10}|{'wickets':10}|{'bowl_avg':10}|{'economy':10}|"
-    )
-    print("-" * 130)
+
     for player in players:
-        print(
-            f"{player['player_id']:10}|{player['name']:15}|{player['role']:15}|{player['match']:10}|{player['innings']:10}|{player['run']:10}|{player['bat_avg']:10}|{player['strike_rate']:10}|{player['wickets']:10}|{player['bowl_avg']:10}|{player['economy']:10}|"
-        )
-    print("-" * 130)
+        print("=" * 70)
+        print(f"ID :{player['player_id']}")
+        print(f"Name :{player['name']}")
+        print(f"Role :{player['role']}")
+        print("=" * 70)
+
+        print(f"{'Statistics':15}|{'T20':12}|{'ODI':12}|{'Test':12}|")
+        print("=" * 70)
+
+        stat_fields = [
+            ("Matches", "matches"),
+            ("Innings", "innings"),
+            ("Runs", "runs"),
+            ("Bat Avg", "bat_avg"),
+            ("Strike Rate", "strike_rate"),
+            ("Wickets", "wickets"),
+            ("Bowl Avg", "bowl_avg"),
+            ("Economy", "economy"),
+        ]
+
+        for label, key in stat_fields:
+            t20 = player["stats"].get("T20", {}).get(key, "-")
+            odi = player["stats"].get("ODI", {}).get(key, "-")
+            test = player["stats"].get("TEST", {}).get(key, "-")
+
+            print(f"{label:15}|{t20:12}|{odi:12}|{test:12}|")
+        print("=" * 70)
 
 
 def search_player():
-    Playerid = input("Enter player id to searh Player: ")
+
+    player_id = input("Enter player ID to search: ")
     players = load_players()
+
     found = False
+
     for player in players:
-        if player["player_id"] == Playerid:
-            print("Player Found")
-            print("-" * 110)
+        if player["player_id"] == player_id:
+            print("\nPlayer Found")
+            print("-" * 130)
+
             print(
-                f"{'ID':10}|{'Name':15}|{'Role':15}|{'Match':10}|{'Innings':10}|{'Runs':10}|{'Bat_Avg':10}|{'SR':10}|{'wickets':10}|{'bowl_avg':10}|{'economy':10}|"
+                f"ID: {player['player_id']} | "
+                f"Name: {player['name']} | "
+                f"Role: {player['role']}"
             )
-            print("-" * 110)
-            print(
-                f"{player['player_id']:10}|{player['name']:15}|{player['role']:15}|{player['match']:10}|{player['innings']:10}|{player['run']:10}|{player['bat_avg']:10}|{player['strike_rate']:10}|{player['wickets']:10}|{player['bowl_avg']:10}|{player['economy']:10}|"
-            )
-            print("-" * 110)
+
+            print("-" * 130)
+
+            print(f"{'Statistic':15}|{'T20':15}|{'ODI':15}|{'TEST':15}|")
+
+            print("-" * 65)
+
+            stats = player["stats"]
+
+            fields = [
+                ("Matches", "matches"),
+                ("Innings", "innings"),
+                ("Runs", "runs"),
+                ("Bat Avg", "bat_avg"),
+                ("Strike Rate", "strike_rate"),
+                ("Wickets", "wickets"),
+                ("Bowl Avg", "bowl_avg"),
+                ("Economy", "economy"),
+            ]
+
+            for label, key in fields:
+                t20 = stats.get("T20", {}).get(key, "-")
+                odi = stats.get("ODI", {}).get(key, "-")
+                test = stats.get("TEST", {}).get(key, "-")
+
+                print(f"{label:15}|{str(t20):15}|{str(odi):15}|{str(test):15}|")
+
+            print("-" * 65)
+
             found = True
+            break
+
     if not found:
-        print("player doesnot exist!")
+        print("Player does not exist!")
 
 
 def update_player():
-    PlayerId = input("Enter player Id to update:")
+
+    player_id = input("Enter player ID to update: ")
     players = load_players()
-    found = False
 
+    matching_player = None
+
+    # Find player
     for player in players:
-        if player["player_id"] == PlayerId:
-            print("-" * 110)
-            print(
-                f"{'ID':10}|{'Name':15}|{'Role':15}|{'Match':10}|{'Innings':10}|{'Runs':10}|{'Bat_Avg':10}|{'SR':10}|{'wickets':10}|{'bowl_avg':10}|{'economy':10}|"
-            )
-            print("-" * 110)
-            print(
-                f"{player['player_id']:10}|{player['name']:15}|{player['role']:15}|{player['match']:10}|{player['innings']:10}|{player['run']:10}|{player['bat_avg']:10}|{player['strike_rate']:10}|{player['wickets']:10}|{player['bowl_avg']:10}|{player['economy']:10}|"
-            )
-            print("-" * 110)
+        if player["player_id"] == player_id:
             matching_player = player
-            found = True
+            break
 
-    if not found:
-        print("Player does not exist")
-    else:
-        print("What do you wnat to update?")
-        print("1.Name")
-        print("2.Role")
-        print("3.Match")
-        print("4.Innings")
-        print("5.Runs")
-        print("6.Batting average")
-        print("7.Strike rate")
-        print("8.Wickets")
-        print("9.Bowling Average")
-        print("10.Economy")
+    if matching_player is None:
+        print("Player does not exist!")
+        return
 
-        choice = int(input("Enter the choice:"))
+    print("\nPlayer Found")
+    print(f"ID: {matching_player['player_id']}")
+    print(f"Name: {matching_player['name']}")
+    print(f"Role: {matching_player['role']}")
+
+    print("\nWhat do you want to update?")
+    print("1. Name")
+    print("2. Role")
+    print("3. Format Statistics")
+
+    choice = int(input("Enter your choice: "))
+
+    
+    if choice == 1:
+        new_name = input("Enter new name: ")
+
+        confirm = input("Confirm update? (Yes/No): ")
+
+        if confirm.lower() == "yes":
+            matching_player["name"] = new_name
+            save_players(players)
+            print("Player updated successfully!")
+        else:
+            print("Update cancelled.")
+
+    
+    elif choice == 2:
+        new_role = input("Enter new role: ")
+
+        confirm = input("Confirm update? (Yes/No): ")
+
+        if confirm.lower() == "yes":
+            matching_player["role"] = new_role
+            save_players(players)
+            print("Player updated successfully!")
+        else:
+            print("Update cancelled.")
+
+    
+    elif choice == 3:
+        print("\nAvailable formats:")
+
+        for format_name in matching_player["stats"]:
+            print("-", format_name)
+
+        format_name = input("Enter format to update (T20/ODI/TEST): ").upper()
+
+        if format_name not in matching_player["stats"]:
+            print("This format does not exist for this player.")
+            return
+
+        print("\nWhat do you want to update?")
+
+        print("1. Matches")
+        print("2. Innings")
+        print("3. Runs")
+        print("4. Batting Average")
+        print("5. Strike Rate")
+        print("6. Wickets")
+        print("7. Bowling Average")
+        print("8. Economy")
+
+        stat_choice = int(input("Enter your choice: "))
 
         field_map = {
-            1: "name",
-            2: "role",
-            3: "match",
-            4: "innings",
-            5: "run",
-            6: "bat_avg",
-            7: "strike_rate",
-            8: "wickets",
-            9: "bowl_avg",
-            10: "economy",
+            1: "matches",
+            2: "innings",
+            3: "runs",
+            4: "bat_avg",
+            5: "strike_rate",
+            6: "wickets",
+            7: "bowl_avg",
+            8: "economy",
         }
-        selected_field = field_map[choice]
+
         type_map = {
-            "name": str,
-            "role": str,
-            "match": int,
+            "matches": int,
             "innings": int,
-            "run": int,
+            "runs": int,
             "bat_avg": float,
             "strike_rate": float,
             "wickets": int,
@@ -199,43 +265,72 @@ def update_player():
             "economy": float,
         }
 
-        converter = type_map[selected_field]
-        new_value = converter(input("Enter New Value:"))
+        if stat_choice not in field_map:
+            print("Invalid choice!")
+            return
 
-        Confirm_update = input("confirm update?(Yes/No):")
-        if Confirm_update.lower() == "yes":
-            matching_player[selected_field] = new_value
+        selected_field = field_map[stat_choice]
+
+        converter = type_map[selected_field]
+
+        new_value = converter(input("Enter new value: "))
+
+        confirm = input("Confirm update? (Yes/No): ")
+
+        if confirm.lower() == "yes":
+            matching_player["stats"][format_name][selected_field] = new_value
+
             save_players(players)
-            print("Player updated successfully")
+
+            print("Player statistics updated successfully!")
+
         else:
-            print("Update cancelled")
+            print("Update cancelled.")
+
+    else:
+        print("Invalid choice!")
 
 
 def delete_player():
-    Playerid = input("Enter player id to delete player:")
-    Players = load_players()
-    found = False
 
-    for player in Players:
-        if player["player_id"] == Playerid:
-            print("-" * 110)
-            print(
-                f"{'ID':10}|{'Name':15}|{'Role':15}|{'Match':10}|{'Innings':10}|{'Runs':10}|{'Bat_Avg':10}|{'SR':10}|{'wickets':10}|{'bowl_avg':10}|{'economy':10}|"
-            )
-            print("-" * 110)
-            print(
-                f"{player['player_id']:10}|{player['name']:15}|{player['role']:15}|{player['match']:10}|{player['innings']:10}|{player['run']:10}|{player['bat_avg']:10}|{player['strike_rate']:10}|{player['wickets']:10}|{player['bowl_avg']:10}|{player['economy']:10}|"
-            )
-            print("-" * 110)
-            found = True
+    player_id = input("Enter player ID to delete: ")
+    players = load_players()
 
-            confirm_deletion = input("Are you sure  you wnat to delete player(Yes/No):")
+    matching_player = None
 
-            if confirm_deletion.lower() == "yes":
-                Players.remove(player)
-                save_players(Players)
-                print("Player deleted successfully!")
-            else:
-                print("deletion cancelled")
-    if not found:
-        print("player id does not exist!")
+    # Find player
+    for player in players:
+        if player["player_id"] == player_id:
+            matching_player = player
+            break
+
+    if matching_player is None:
+        print("Player ID does not exist!")
+        return
+
+    print("\nPlayer Found")
+    print("-" * 50)
+
+    print(f"ID: {matching_player['player_id']}")
+    print(f"Name: {matching_player['name']}")
+    print(f"Role: {matching_player['role']}")
+
+    print("\nAvailable Formats:")
+    for format_name in matching_player["stats"]:
+        print("-", format_name)
+
+    print("-" * 50)
+
+    confirm_deletion = input(
+        "Are you sure you want to delete this player? (Yes/No): "
+    )
+
+    if confirm_deletion.lower() == "yes":
+
+        players.remove(matching_player)
+        save_players(players)
+
+        print("Player deleted successfully!")
+
+    else:
+        print("Deletion cancelled.")

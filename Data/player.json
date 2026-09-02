@@ -1,15 +1,56 @@
 [
     {
         "player_id": "P002",
-        "name": "virat",
+        "name": "Virat kholi",
         "role": "batter",
-        "match":50,
-        "innings":48,
-        "run":1500,
-        "bat_avg": 50.0,
-        "strike_rate": 145.0,
-        "wickets": 0,
-        "bowl_avg": 0.0,
-        "economy": 0.0
+        "stats": {
+            "T20": {
+                "matches": 100,
+                "innings": 95,
+                "runs": 3500,
+                "bat_avg": 42.5,
+                "strike_rate": 138.2,
+                "wickets": 0,
+                "bowl_avg": 0.0,
+                "economy": 0.0
+            },
+            "ODI": {
+                "matches": 280,
+                "innings": 270,
+                "runs": 14000,
+                "bat_avg": 58.2,
+                "strike_rate": 93.5,
+                "wickets": 4,
+                "bowl_avg": 45.0,
+                "economy": 5.2
+            },
+            "TEST": {
+                "matches": 120,
+                "innings": 200,
+                "runs": 9500,
+                "bat_avg": 49.5,
+                "strike_rate": 55.0,
+                "wickets": 0,
+                "bowl_avg": 0.0,
+                "economy": 0.0
+            }
+        }
+    },
+    {
+        "player_id": "P003",
+        "name": "Rohit Sharma",
+        "role": "Batter",
+        "stats": {
+            "T20": {
+                "matches": 159,
+                "innings": 151,
+                "runs": 5000,
+                "bat_avg": 31.57,
+                "strike_rate": 139.22,
+                "wickets": 1,
+                "bowl_avg": 45.0,
+                "economy": 9.0
+            }
+        }
     }
 ]
