@@ -78,15 +78,39 @@ def add_player():
 
 def view_players():
     players = load_players()
-    print(
-        f"{'ID':10}|{'Name':15}|{'Role':15}|{'Format':15}|{'Matchs':10}|{'Innings':10}|{'Runs':10}|{'Bat_Avg':10}|{'SR':10}|{'wickets':10}|{'bowl_avg':10}|{'economy':10}|"
-    )
-    print("-" * 130)
+
     for player in players:
+        print("="*70)
+        print(f"ID :{player['player_id']}")
+        print(f"Name :{player['name']}")
+        print(f"Role :{player['role']}")
+        print("="*70)
+
         print(
-            f"{player['player_id']:10}|{player['name']:15}|{player['role']:15}|{player['format']:15}|{player['matchs']:10}|{player['innings']:10}|{player['runs']:10}|{player['bat_avg']:10}|{player['strike_rate']:10}|{player['wickets']:10}|{player['bowl_avg']:10}|{player['economy']:10}|"
+            f"{'Statistics':15}|{'T20':12}|{'ODI':12}|{'Test':12}|"
         )
-    print("-" * 130)
+        print("="*70)
+
+        stat_fields = [
+            ("Matches", "matches"),
+            ("Innings", "innings"),
+            ("Runs", "runs"),
+            ("Bat Avg", "bat_avg"),
+            ("Strike Rate", "strike_rate"),
+            ("Wickets", "wickets"),
+            ("Bowl Avg", "bowl_avg"),
+            ("Economy", "economy"),
+        ]
+
+        for label, key in stat_fields:
+            t20 = player["stats"].get("T20", {}).get(key, "-")
+            odi = player["stats"].get("ODI", {}).get(key, "-")
+            test = player["stats"].get("TEST", {}).get(key, "-")
+
+            print(
+                f"{label:15}|{t20:12}|{odi:12}|{test:12}|"
+            )
+        print("=" * 70)
 
 
 def search_player():
