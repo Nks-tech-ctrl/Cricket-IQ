@@ -1,7 +1,7 @@
 [
     {
         "player_id": "P002",
-        "name": "Virat",
+        "name": "Virat kholi",
         "role": "batter",
         "stats": {
             "T20": {
@@ -44,7 +44,7 @@
             "T20": {
                 "matches": 159,
                 "innings": 151,
-                "runs": 4231,
+                "runs": 5000,
                 "bat_avg": 31.57,
                 "strike_rate": 139.22,
                 "wickets": 1,
