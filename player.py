@@ -114,24 +114,69 @@ def view_players():
 
 
 def search_player():
-    Playerid = input("Enter player id to searh Player: ")
+
+    player_id = input("Enter player ID to search: ")
     players = load_players()
+
     found = False
+
     for player in players:
-        if player["player_id"] == Playerid:
-            print("Player Found")
-            print("-" * 110)
+
+        if player["player_id"] == player_id:
+
+            print("\nPlayer Found")
+            print("-" * 130)
+
             print(
-                f"{'ID':10}|{'Name':15}|{'Role':15}|{'Match':10}|{'Innings':10}|{'Runs':10}|{'Bat_Avg':10}|{'SR':10}|{'wickets':10}|{'bowl_avg':10}|{'economy':10}|"
+                f"ID: {player['player_id']} | "
+                f"Name: {player['name']} | "
+                f"Role: {player['role']}"
             )
-            print("-" * 110)
+
+            print("-" * 130)
+
             print(
-                f"{player['player_id']:10}|{player['name']:15}|{player['role']:15}|{player['match']:10}|{player['innings']:10}|{player['run']:10}|{player['bat_avg']:10}|{player['strike_rate']:10}|{player['wickets']:10}|{player['bowl_avg']:10}|{player['economy']:10}|"
+                f"{'Statistic':15}|"
+                f"{'T20':15}|"
+                f"{'ODI':15}|"
+                f"{'TEST':15}|"
             )
-            print("-" * 110)
+
+            print("-" * 65)
+
+            stats = player["stats"]
+
+            fields = [
+                ("Matches", "matches"),
+                ("Innings", "innings"),
+                ("Runs", "runs"),
+                ("Bat Avg", "bat_avg"),
+                ("Strike Rate", "strike_rate"),
+                ("Wickets", "wickets"),
+                ("Bowl Avg", "bowl_avg"),
+                ("Economy", "economy"),
+            ]
+
+            for label, key in fields:
+
+                t20 = stats.get("T20", {}).get(key, "-")
+                odi = stats.get("ODI", {}).get(key, "-")
+                test = stats.get("TEST", {}).get(key, "-")
+
+                print(
+                    f"{label:15}|"
+                    f"{str(t20):15}|"
+                    f"{str(odi):15}|"
+                    f"{str(test):15}|"
+                )
+
+            print("-" * 65)
+
             found = True
+            break
+
     if not found:
-        print("player doesnot exist!")
+        print("Player does not exist!")
 
 
 def update_player():
