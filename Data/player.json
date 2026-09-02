@@ -35,5 +35,22 @@
                 "economy": 0.0
             }
         }
+    },
+    {
+        "player_id": "P003",
+        "name": "Rohit Sharma",
+        "role": "Batter",
+        "stats": {
+            "T20": {
+                "matches": 159,
+                "innings": 151,
+                "runs": 4231,
+                "bat_avg": 31.57,
+                "strike_rate": 139.22,
+                "wickets": 1,
+                "bowl_avg": 45.0,
+                "economy": 9.0
+            }
+        }
     }
 ]
