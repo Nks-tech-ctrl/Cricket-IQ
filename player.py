@@ -191,7 +191,6 @@ def update_player():
 
     choice = int(input("Enter your choice: "))
 
-    
     if choice == 1:
         new_name = input("Enter new name: ")
 
@@ -204,7 +203,6 @@ def update_player():
         else:
             print("Update cancelled.")
 
-    
     elif choice == 2:
         new_role = input("Enter new role: ")
 
@@ -217,7 +215,6 @@ def update_player():
         else:
             print("Update cancelled.")
 
-    
     elif choice == 3:
         print("\nAvailable formats:")
 
@@ -321,12 +318,9 @@ def delete_player():
 
     print("-" * 50)
 
-    confirm_deletion = input(
-        "Are you sure you want to delete this player? (Yes/No): "
-    )
+    confirm_deletion = input("Are you sure you want to delete this player? (Yes/No): ")
 
     if confirm_deletion.lower() == "yes":
-
         players.remove(matching_player)
         save_players(players)
 
@@ -334,3 +328,48 @@ def delete_player():
 
     else:
         print("Deletion cancelled.")
+
+
+def player_statistics():
+    print("Choose format")
+    print("1.T20")
+    print("2.ODI")
+    print("3.Test")
+    print("4.back")
+
+    userChoice = input("Enter the choice:")
+
+    if userChoice == "1":
+        format_name = "T20"
+    elif userChoice == "2":
+        format_name = "ODI"
+    elif userChoice == "3":
+        format_name = "TEST"
+    elif userChoice == "4":
+        print("backed")
+        return
+    else:
+        print("Invalid choice!")
+        return
+    stat_fields = [
+        ("Matches", "matches"),
+        ("Innings", "innings"),
+        ("Runs", "runs"),
+        ("Bat Avg", "bat_avg"),
+        ("Strike Rate", "strike_rate"),
+        ("Wickets", "wickets"),
+        ("Bowl Avg", "bowl_avg"),
+        ("Economy", "economy"),
+    ]
+
+    players = load_players()
+
+    for player in players:
+        selected_stats = player["stats"].get(format_name, {})
+
+        if selected_stats:
+            name = player["name"]
+            print(name)
+            for label, key in stat_fields:
+                value = selected_stats.get(key, "-")
+                print(f"{label:15}|{value:10}|")
