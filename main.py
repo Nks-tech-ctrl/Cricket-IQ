@@ -5,7 +5,8 @@ from player import (
     search_player,
     delete_player,
     player_statistics,
-    selectedPlayer_statistics
+    selectedPlayer_statistics,
+    compare_player_statistics
 )
 
 import player
@@ -21,8 +22,9 @@ while True:
     print("4.Update Player")
     print("5.Delete Player")
     print("6.Player Statistics")
-    print("7. Selected Player Statistics")
-    print("8.Exit")
+    print("7.Selected Player Statistics")
+    print("8.Compare Player Statistics")
+    print("9.Exit")
 
     userChoice = input("Enter your choice:")
 
@@ -40,7 +42,7 @@ while True:
         player_statistics()
     elif userChoice=="7":
         selectedPlayer_statistics()
-    elif userChoice == "8":
+    elif userChoice == "9":
         print("Exiting..!")
         break
     else:
