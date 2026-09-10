@@ -386,7 +386,6 @@ def selectedPlayer_statistics():
             print("\nPlayer Found")
             print(player["name"])
             found = True
-            break
 
     if not found:
         print("Player Not Exist!")
