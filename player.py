@@ -373,3 +373,68 @@ def player_statistics():
             for label, key in stat_fields:
                 value = selected_stats.get(key, "-")
                 print(f"{label:15}|{value:10}|")
+
+
+def selectedPlayer_statistics():
+    playerId = input("Enter Player Id to View Stats:")
+    players = load_players()
+
+    found = False
+
+    for player in players:
+        if player["player_id"] == playerId:
+            print("\nPlayer Found")
+            print(player["name"])
+            found = True
+
+    if not found:
+        print("Player Not Exist!")
+        return
+
+    print("Choose format")
+    print("1.T20")
+    print("2.ODI")
+    print("3.Test")
+    print("4.back")
+
+    userChoice = input("Enter choice:")
+
+    if userChoice == "1":
+        format_name = "T20"
+    elif userChoice == "2":
+        format_name = "ODI"
+    elif userChoice == "3":
+        format_name = "TEST"
+    elif userChoice == "4":
+        print("backed")
+        return
+    else:
+        print("Invalid choice!")
+        return
+
+    selected_stats = player["stats"].get(format_name, {})
+
+    if selected_stats:
+        print("=" * 35)
+        print(f"{'Statistics':15}|{format_name:12}|")
+        print("=" * 35)
+
+        stat_fields = [
+            ("Matches", "matches"),
+            ("Innings", "innings"),
+            ("Runs", "runs"),
+            ("Bat Avg", "bat_avg"),
+            ("Strike Rate", "strike_rate"),
+            ("Wickets", "wickets"),
+            ("Bowl Avg", "bowl_avg"),
+            ("Economy", "economy"),
+        ]
+
+        for label, key in stat_fields:
+            value = selected_stats.get(key, "-")
+            print(f"{label:15}|{value:12}|")
+
+        print("=" * 35)
+
+    else:
+        print(f"{format_name} statistics are not available for this player.")
