@@ -439,18 +439,19 @@ def selectedPlayer_statistics():
     else:
         print(f"{format_name} statistics are not available for this player.")
 
+
 def compare_player_statistics():
-    Player1=input("Enter player id to compare:")
-    players=load_players()
-    found =False
+    Player1 = input("Enter player id to compare:")
+    players = load_players()
+    found = False
 
     for player in players:
-        if player["player_id"]==Player1:
+        if player["player_id"] == Player1:
             print("\n Player Found")
-            player1=player
-            found =True
+            player1 = player
+            found = True
             break
-            
+
     if not found:
         print("Player Not found!")
         return
@@ -462,7 +463,7 @@ def compare_player_statistics():
     print("4.back")
 
     userChoice = input("Enter choice:")
-        
+
     if userChoice == "1":
         format_name = "T20"
     elif userChoice == "2":
@@ -476,20 +477,20 @@ def compare_player_statistics():
         print("Invalid choice!")
         return
 
-    Player2=input("Enter decond player to compare:")
+    Player2 = input("Enter decond player to compare:")
     found = False
 
     for player in players:
-        if player["player_id"]==Player2:
-            player2=player
-            found=True
+        if player["player_id"] == Player2:
+            player2 = player
+            found = True
             break
     if not found:
         print("player not found!")
         return
 
-    selected_stats_1=player1["stats"].get(format_name,{})
-    selected_stats_2=player2["stats"].get(format_name,{})
+    selected_stats_1 = player1["stats"].get(format_name, {})
+    selected_stats_2 = player2["stats"].get(format_name, {})
 
     stat_fields = [
         ("Matches", "matches"),
@@ -501,8 +502,14 @@ def compare_player_statistics():
         ("Bowl Avg", "bowl_avg"),
         ("Economy", "economy"),
     ]
+    print("=" * 55)
+    print(f" Comparison -{format_name}")
+    print("=" * 55)
+    print(f"{'Statistics':15}| {player1['name']:12}| {player2['name']:12}|")
+    print("=" * 55)
 
-    for label,key in stat_fields:
-        value1=selected_stats_1.get(key,"-")
-        value2=selected_stats_2.get(key,"-")
-        print(f"{label:15}|{value1:12}|{value2:12}|")
+    for label, key in stat_fields:
+        value1 = selected_stats_1.get(key, "-")
+        value2 = selected_stats_2.get(key, "-")
+        print(f"{label:15}| {value1:12}| {value2:12}|")
+    print("=" * 55)
