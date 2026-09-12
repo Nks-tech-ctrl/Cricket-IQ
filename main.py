@@ -6,10 +6,11 @@ from player import (
     delete_player,
     player_statistics,
     selectedPlayer_statistics,
-    compare_player_statistics
+    compare_player_statistics,
 )
 
 import player
+
 print(player.__file__)
 while True:
     print("\n" + "-" * 35)
@@ -40,11 +41,12 @@ while True:
         delete_player()
     elif userChoice == "6":
         player_statistics()
-    elif userChoice=="7":
+    elif userChoice == "7":
         selectedPlayer_statistics()
+    elif userChoice == "8":
+        compare_player_statistics()
     elif userChoice == "9":
         print("Exiting..!")
         break
     else:
         print("Invalid choice!")
-
