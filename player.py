@@ -514,16 +514,17 @@ def compare_player_statistics():
         print(f"{label:15}| {value1:12}| {value2:12}|")
     print("=" * 55)
 
+
 def player_leaderboard():
-    print("="* 35)
+    print("=" * 35)
     print("Choose format")
     print("1.T20")
     print("2.ODI")
     print("3.Test")
     print("4.back")
-    print("="* 35)
+    print("=" * 35)
 
-    userChoice=input("Enter the format choice:")
+    userChoice = input("Enter the format choice:")
     if userChoice == "1":
         format_name = "T20"
     elif userChoice == "2":
@@ -537,47 +538,67 @@ def player_leaderboard():
         print("Invalid Choice!")
         return
 
-    print("="*35)
+    print("=" * 35)
     print(" Choose Ranking ")
     print("1.Runs")
-    print("2.Wickets") 
+    print("2.Wickets")
     print("3.Batting Average")
     print("4.Strike Rate")
     print("5.Bowling Average")
     print("6.Economy")
     print("7.Back")
 
-    rankingChoice=input("Enter the choice:")
+    rankingChoice = input("Enter the choice:")
 
-    if rankingChoice=="1":
-        ranking_key="runs"
-    elif rankingChoice=="2":
-        ranking_key="wickets"
-    elif rankingChoice=="3":
-        ranking_key="bat_avg"
-    elif rankingChoice=="4":
-        ranking_key="strike_rate"
-    elif rankingChoice=="5":
-        ranking_key="bowl_avg"
-    elif rankingChoice=="6":
-        ranking_key="economy"
-    elif rankingChoice=="7":
+    if rankingChoice == "1":
+        ranking_key = "runs"
+    elif rankingChoice == "2":
+        ranking_key = "wickets"
+    elif rankingChoice == "3":
+        ranking_key = "bat_avg"
+    elif rankingChoice == "4":
+        ranking_key = "strike_rate"
+    elif rankingChoice == "5":
+        ranking_key = "bowl_avg"
+    elif rankingChoice == "6":
+        ranking_key = "economy"
+    elif rankingChoice == "7":
         print("backed")
         return
     else:
         print("Invalid Choice!")
         return
 
-    
+    if ranking_key == "bowl_avg" or ranking_key == "economy":
+        reverse_order = False
+    else:
+        reverse_order = True
 
-    players= load_players()
+    display_names = {
+        "runs": "Runs",
+        "wickets": "WICKETS",
+        "bat_avg": "BATTING AVERAGE",
+        "strike_rate": "STRIKE RATE",
+        "bowl_avg": "BOWLING AVERAGE",
+        "economy": "ECONOMY",
+    }
 
-    leaderboard=[]
-
+    players = load_players()
+    leaderboard = []
     for player in players:
         if format_name in player["stats"]:
-            selected_stats=player["stats"].get(format_name,{})
-            ranking_value = selected_stats.get(ranking_key,"-")
-            leaderboard.append((player["name"],ranking_value))
-    leaderboard=sorted(leaderboard,key=lambda x:x[1],reverse=True)
-    print(leaderboard)
+            selected_stats = player["stats"].get(format_name, {})
+            ranking_value = selected_stats.get(ranking_key, "-")
+            leaderboard.append((player["name"], ranking_value))
+    if not leaderboard:
+        return
+    leaderboard = sorted(leaderboard, key=lambda x: x[1], reverse=reverse_order)
+    print("=" * 55)
+    print(f"{format_name} LEADERBOARD — {display_names[ranking_key]}")
+    print("=" * 55)
+    print(f"{'Rank':5}| {'Player':15}| {'Value':10}|")
+    print("-" * 55)
+    for rank, player in enumerate(leaderboard, start=1):
+        print(f"{rank:5}| {player[0]:15}| {player[1]:10}|")
+
+    print("=" * 55)
