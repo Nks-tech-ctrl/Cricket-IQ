@@ -46,14 +46,54 @@ def add_player():
     name = input("Enter player name:")
     role = input("Enter role of player:")
     format = input("Enter Format (T20/ODI/Test):")
-    matches = int(input("Enter the matches played by player:"))
-    innings = int(input("Enter the innings:  "))
-    runs = int(input("Enter total runs:"))
-    bat_avg = float(input("Enter the batting average:"))
-    strike_rate = float(input("Enter the strike rate of player:"))
-    wickets = int(input("Enter the wickets of player:"))
-    bowl_avg = float(input("Enter the the bowling average:"))
-    economy = float(input("Enter the economy of player:"))
+    while True:
+        try:
+            matches = int(input("Enter the matches played by player:"))
+            break
+        except ValueError:
+            print("Please enter valid number!")
+    while True:
+        try:
+            innings = int(input("Enter the innings:  "))
+            break
+        except ValueError:
+            print("Please enter valid number!")
+    while True:
+        try:
+            runs = int(input("Enter Total runs:"))
+            break
+        except ValueError:
+            print("Please Enter Valid Number!")
+    while True:
+        try:
+            bat_avg = float(input("Enter the batting average:"))
+            break
+        except ValueError:
+            print("Please enter valid number!")
+    while True:
+        try:
+            strike_rate = float(input("Enter the strike rate of player:"))
+            break
+        except ValueError:
+            print("Please enter valid number!")
+    while True:
+        try:
+            wickets = int(input("Enter the wickets of player:"))
+            break
+        except ValueError:
+            print("Please enter valid number!")
+    while True:
+        try:
+            bowl_avg = float(input("Enter the the bowling average:"))
+            break
+        except ValueError:
+            print("Please enter valid number!")
+    while True:
+        try:
+            economy = float(input("Enter the economy of player:"))
+            break
+        except ValueError:
+            print("Please enter valid number!")
 
     stats = {
         format: {
