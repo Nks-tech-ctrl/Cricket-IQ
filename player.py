@@ -44,54 +44,93 @@ def add_player():
     player_id = generate_playerID()
     players = load_players()
     name = input("Enter player name:")
-    role = input("Enter role of player:")
-    format = input("Enter Format (T20/ODI/Test):")
+
+    allowed_roles=["BATTER","BOWLER","ALL ROUNDER"]
+    while True:
+      role = input("Enter role of player:").upper()
+      if role not in allowed_roles:
+          print("please enter valid roles!")
+      else:
+          break
+      
+    allowed_formats=["T20","ODI","TEST"]
+    while True:
+        format = input("Enter Format (T20/ODI/Test):").upper()
+        if format not in allowed_formats:
+            print("Please enter valid format!")
+        else:
+            break 
+        
     while True:
         try:
             matches = int(input("Enter the matches played by player:"))
-            break
+            if matches < 0:
+                print("Please enter valid number!")
+            else:
+                break
         except ValueError:
             print("Please enter valid number!")
     while True:
         try:
             innings = int(input("Enter the innings:  "))
-            break
+            if innings < 0:
+                print("Please enter valid number!")
+            else:
+                break
         except ValueError:
             print("Please enter valid number!")
     while True:
         try:
             runs = int(input("Enter Total runs:"))
-            break
+            if runs < 0:
+                print("Please enter valid number")
+            else:
+                break
         except ValueError:
             print("Please Enter Valid Number!")
     while True:
         try:
             bat_avg = float(input("Enter the batting average:"))
-            break
+            if bat_avg < 0:
+                print("Please enter valid number!")
+            else:
+                break
         except ValueError:
             print("Please enter valid number!")
     while True:
         try:
             strike_rate = float(input("Enter the strike rate of player:"))
-            break
+            if strike_rate < 0:
+                print("Please enter valid number!")
+            else:
+                break
         except ValueError:
             print("Please enter valid number!")
     while True:
         try:
             wickets = int(input("Enter the wickets of player:"))
-            break
+            if wickets < 0:
+                print("Please enter valid number!")
+            else:
+                break
         except ValueError:
             print("Please enter valid number!")
     while True:
         try:
             bowl_avg = float(input("Enter the the bowling average:"))
-            break
+            if bowl_avg < 0:
+                print("Enter valid number!")
+            else:
+                break
         except ValueError:
             print("Please enter valid number!")
     while True:
         try:
             economy = float(input("Enter the economy of player:"))
-            break
+            if economy < 0:
+                print("Please enter valid number!")
+            else:
+                break
         except ValueError:
             print("Please enter valid number!")
 
@@ -229,7 +268,12 @@ def update_player():
     print("2. Role")
     print("3. Format Statistics")
 
-    choice = int(input("Enter your choice: "))
+    while True:
+        try:
+            choice = int(input("Enter your choice: "))
+            break
+        except ValueError:
+            print("Please enter valid input!")
 
     if choice == 1:
         new_name = input("Enter new name: ")
@@ -244,16 +288,21 @@ def update_player():
             print("Update cancelled.")
 
     elif choice == 2:
-        new_role = input("Enter new role: ")
-
+        allowed_roles=["BATTER","BOWLER","ALL ROUNDER"]
+        while True:
+            new_role = input("Enter new role: ")
+            if new_role not in allowed_roles:
+                print("Please enter valid roles!")
+                continue
+            else:
+                break
         confirm = input("Confirm update? (Yes/No): ")
-
         if confirm.lower() == "yes":
-            matching_player["role"] = new_role
-            save_players(players)
-            print("Player updated successfully!")
+               matching_player["role"] = new_role
+               save_players(players)
+               print("Player updated successfully!")
         else:
-            print("Update cancelled.")
+               print("Update cancelled.")
 
     elif choice == 3:
         print("\nAvailable formats:")
@@ -278,7 +327,12 @@ def update_player():
         print("7. Bowling Average")
         print("8. Economy")
 
-        stat_choice = int(input("Enter your choice: "))
+        while True:
+            try:
+               stat_choice = int(input("Enter your choice: "))
+               break
+            except ValueError:
+                print("Please valid input!")
 
         field_map = {
             1: "matches",
@@ -309,9 +363,15 @@ def update_player():
         selected_field = field_map[stat_choice]
 
         converter = type_map[selected_field]
-
-        new_value = converter(input("Enter new value: "))
-
+        while True:
+            try:
+               new_value = converter(input("Enter new value: ")).lower()
+               if new_value <0:
+                   print("Please enter valid input")
+               else:
+                   break
+            except ValueError:
+                print("Please enter valid input")
         confirm = input("Confirm update? (Yes/No): ")
 
         if confirm.lower() == "yes":

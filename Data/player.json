@@ -38,19 +38,37 @@
     },
     {
         "player_id": "P003",
-        "name": "Rohit Sharma",
-        "role": "Batter",
+        "name": "Jasprit Bumrah",
+        "role": "BOWLER",
         "stats": {
             "T20": {
-                "matches": 159,
-                "innings": 151,
-                "runs": 5000,
-                "bat_avg": 31.57,
-                "strike_rate": 139.22,
-                "wickets": 1,
-                "bowl_avg": 45.0,
-                "economy": 9.0
+                "matches": 90,
+                "innings": 90,
+                "runs": 50,
+                "bat_avg": 5.5,
+                "strike_rate": 95.2,
+                "wickets": 110,
+                "bowl_avg": 18.4,
+                "economy": 7.1
+            }
+        }
+    },
+    {
+        "player_id": "P004",
+        "name": "nikhil",
+        "role": "BATTER",
+        "stats": {
+            "T20": {
+                "matches": 10,
+                "innings": 7,
+                "runs": 100,
+                "bat_avg": 34.0,
+                "strike_rate": 130.0,
+                "wickets": 0,
+                "bowl_avg": 0.0,
+                "economy": 0.0
             }
         }
     }
+    
 ]
